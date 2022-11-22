@@ -4,7 +4,7 @@ namespace CaptainCoder.Chess;
 /// An IChessBoard represents a rectangular grid which holds
 /// some number of IPieces.
 /// </summary>
-public interface IChessBoard
+public interface IGameBoard
 {
     /// <summary>
     /// A pair, representing the dimensions of this board.
@@ -28,8 +28,15 @@ public interface IChessBoard
     public IPiece GetPiece((int, int) pos);
 
     /// <summary>
-    /// Resets the state of the board by initializing all of the current pieces
+    /// Adds the specified piece to this board.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown if the specified piece could not be added to the board</exception>
+    public void AddPiece(IPiece piece);
+
+    /// <summary>
+    /// Initializes the state of the board by initializing all of the current pieces
     /// that are on the board.
     /// </summary>
-    public void ResetBoard();
+    
+    public void InitBoard();
 }

@@ -14,17 +14,17 @@ public interface IPiece
     /// <summary>
     /// The board that this piece is currently associated with.
     /// </summary>
-    public IChessBoard Board { get; }
+    public IGameBoard Board { get; }
 
     /// <summary>
     /// The position that this piece starts at
     /// </summary>
-    public (int, int) StartPosition { get; }
+    public (int row, int col) StartPosition { get; }
 
     /// <summary>
     /// The current position of this piece
     /// </summary>
-    public (int, int) Position { get; }
+    public (int row, int col) Position { get; }
 
     /// <summary>
     /// True if this piece has moved at least once and false otherwise
