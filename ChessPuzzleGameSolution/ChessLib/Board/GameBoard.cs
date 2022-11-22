@@ -1,4 +1,5 @@
 namespace CaptainCoder.Chess;
+using System.Linq;
 
 public class GameBoard : IGameBoard
 {
@@ -12,7 +13,7 @@ public class GameBoard : IGameBoard
     }
 
     public IPiece GetPiece((int, int) pos) => this._board[pos];
-    public bool IsEmpty((int, int) pos) => this._board.ContainsKey(pos);
+    public bool IsEmpty((int, int) pos) => !this._board.ContainsKey(pos);
     public void InitBoard()
     {
         this._board.Clear();
@@ -24,12 +25,18 @@ public class GameBoard : IGameBoard
 
     public void AddPiece(IPiece piece)
     {
-        // TODO(jcollard): The piece will be observable. When you add the piece, the board sets itself as an observer
         IPiece? other = _pieces.Where(other => piece.StartPosition == other.StartPosition).FirstOrDefault();
         if (other != null)
         {
             throw new InvalidOperationException($"Cannot add {piece.Name} to board because a {other.Name} is already in that StartPosition {piece.StartPosition}.");
         }
         this._pieces.Add(piece);
+        piece.OnMove += this.OnPieceMove;
+    }
+
+    private void OnPieceMove((int row, int col) start, (int row, int col) end, IPiece piece)
+    {
+        _board.Remove(start);
+        _board[end] = piece;
     }
 }

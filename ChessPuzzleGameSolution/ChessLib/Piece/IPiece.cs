@@ -37,10 +37,21 @@ public interface IPiece
     public bool IsCaptured { get; }
 
     /// <summary>
+    /// This event triggers when this IPiece's position changes.
+    /// </summary>
+    public event Action<(int row, int col), (int row, int col), IPiece> OnMove;
+
+    /// <summary>
     /// Attempts to move this piece to the specified position. If
     /// the piece was able to move, returns true otherwise returns false.
     /// </summary>
     public bool TryMove((int, int) target);
+
+    /// <summary>
+    /// Attempts to move this piece to the specified position. If
+    /// the piece was able to move, returns true otherwise returns false.
+    /// </summary>
+    public bool TryMove(int row, int col) => TryMove((row, col));
 
     /// <summary>
     /// Returns a list of possible moves that this piece can make

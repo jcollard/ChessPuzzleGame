@@ -20,6 +20,11 @@ public interface IGameBoard
     public bool IsEmpty((int, int) pos);
 
     /// <summary>
+    /// Checks if the given position a position on this board.
+    /// </summary>
+    public bool IsInBounds((int row, int col) pos) => pos.row >= 0 && pos.col >= 0 && pos.row < this.Size.rows && pos.col < this.Size.cols;
+
+    /// <summary>
     /// Returns the IPiece that occupies the specified position on the board.
     /// If no piece is in that position, this method will throw an 
     /// </summary>
@@ -37,6 +42,5 @@ public interface IGameBoard
     /// Initializes the state of the board by initializing all of the current pieces
     /// that are on the board.
     /// </summary>
-    
     public void InitBoard();
 }
